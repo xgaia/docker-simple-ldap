@@ -1,5 +1,6 @@
 dn: uid=${USER_UID},ou=Users,${SUFFIX}
 objectclass: inetOrgPerson
+givenName: ${USER_GIVEN_NAME}
 cn: ${USER_GIVEN_NAME} ${USER_SURNAME}
 sn: ${USER_SURNAME}
 uid: ${USER_UID}

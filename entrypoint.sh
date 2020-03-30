@@ -4,9 +4,13 @@
 export ROOT_PW=$(slappasswd -s "${ROOT_PW_CLEAR}")
 cat /ldap/slapd.conf | envsubst > /etc/openldap/slapd.conf
 
-# Create organisation file
-cat /ldap/organisation.ldif | envsubst > /etc/openldap/organisation.ldif
-slapadd -l /etc/openldap/organisation.ldif
+# Create organisation once
+test_org_file=/var/lib/openldap/openldap-data/.organisation
+if [ ! -f ${test_org_file} ]; then
+    touch ${test_org_file}
+    cat /ldap/organisation.ldif | envsubst > /etc/openldap/organisation.ldif
+    slapadd -l /etc/openldap/organisation.ldif
+fi
 
 # Insert first user once
 test_user_file=/var/lib/openldap/openldap-data/.first_user
